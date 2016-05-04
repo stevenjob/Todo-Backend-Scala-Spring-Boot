@@ -1,10 +1,14 @@
-import org.springframework.web.bind.annotation.RestController
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.CrossOrigin
+package com.sjob
+
+import org.springframework.web.bind.annotation._
 
 @RestController
 @CrossOrigin
 @RequestMapping(Array("/todos"))
-class TodoController {}
+class TodoController {
+  
+    @RequestMapping(method = Array(RequestMethod.GET))
+    def list() = {
+
+    }
+}
