@@ -8,8 +8,8 @@ buildscript {
 		maven { url "https://repo.spring.io/milestone" }
 	}
 	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
 		classpath("org.scala-lang:scala-library:2.11.7")
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
 	}
 }
 
@@ -19,7 +19,7 @@ apply plugin: 'spring-boot'
 
 jar {
 	baseName = 'todo-backend'
-	version = '0.0.1-SNAPSHOT'
+	version = '0.0.1'
 }
 
 sourceCompatibility = 1.8
@@ -35,3 +35,12 @@ dependencies {
 	compile("org.scala-lang:scala-library:2.11.7")
 	compile("org.springframework.boot:spring-boot-starter-web")
 }
+
+task stage {
+	dependsOn build
+}
+
+task wrapper(type: Wrapper) {
+     gradleVersion = '2.12'
+}
+ 
