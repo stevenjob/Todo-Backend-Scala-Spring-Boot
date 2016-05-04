@@ -13,4 +13,8 @@ hs_err_pid*
 
 # intellij
 .idea/
+*.iml
 
+build/
+
+.gradle/
