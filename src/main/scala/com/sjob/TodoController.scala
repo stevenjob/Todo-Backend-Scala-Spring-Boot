@@ -2,22 +2,23 @@ package com.sjob
 
 import org.springframework.web.bind.annotation._
 import org.springframework.validation.BindingResult
+import org.springframework.beans.factory.annotation.Autowired
 import java.lang.Long
 import javax.validation.Valid
 
 @RestController
 @CrossOrigin
 @RequestMapping(Array("/todos"))
-class TodoController {
+class TodoController @Autowired()(private val todoService: TodoService) {
 
   @RequestMapping(method = Array(RequestMethod.GET))
-  def get() = {
-
+  def getAll() = {
+    todoService.getAll
   }
 
   @RequestMapping(value = Array("/{id}"), method = Array(RequestMethod.GET))
   def getByID(@PathVariable("id") id: Long) = {
-
+    todoService.get(id)
   }
 
   @RequestMapping(method = Array(RequestMethod.POST))
@@ -25,23 +26,23 @@ class TodoController {
     if (bindingResult.hasErrors()) {
       //TODO do something
     } else {
-
+      todoService.create(todo)
     }
   }
 
   @RequestMapping(value = Array("/{id}"), method = Array(RequestMethod.PATCH))
-  def update(@PathVariable("id") id: String, @RequestBody todoUpdates: Todo) = {
-
+  def edit(@PathVariable("id") id: String, @RequestBody todoUpdates: Todo) = {
+    todoService.edit(todoUpdates)
   }
 
   @RequestMapping(value = Array("/{id}"), method = Array(RequestMethod.DELETE))
   def deleteByID(@PathVariable("id") id: Long) = {
-
+    todoService.delete(id)
   }
 
   @RequestMapping(method = Array(RequestMethod.DELETE))
   def deleteAll() {
-
+    todoService.deleteAll
   }
 
 }
