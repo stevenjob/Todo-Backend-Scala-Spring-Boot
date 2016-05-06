@@ -24,8 +24,8 @@ class InMemoryTodoRepository extends TodoRepository {
     null
   }
 
-  def getAll(): List[Todo] = {
-    todos.toList
+  def getAll(): ListBuffer[Todo] = {
+    todos
   }
 
 }

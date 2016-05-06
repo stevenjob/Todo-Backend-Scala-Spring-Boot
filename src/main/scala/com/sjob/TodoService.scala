@@ -14,7 +14,7 @@ class TodoService @Autowired()(private val todoRepository: TodoRepository) {
     todoRepository.get(id)
   }
 
-  def getAll(): List[Todo] = {
+  def getAll(): Seq[Todo] = {
     todoRepository.getAll
   }
 
