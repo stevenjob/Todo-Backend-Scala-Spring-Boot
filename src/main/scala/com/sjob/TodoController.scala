@@ -5,6 +5,7 @@ import org.springframework.validation.BindingResult
 import org.springframework.beans.factory.annotation.Autowired
 import java.lang.Long
 import javax.validation.Valid
+import scala.collection.JavaConversions._
 
 @RestController
 @CrossOrigin
@@ -12,7 +13,7 @@ import javax.validation.Valid
 class TodoController @Autowired()(private val todoService: TodoService) {
 
   @RequestMapping(method = Array(RequestMethod.GET))
-  def getAll() = {
+  def getAll(): java.util.List[Todo] = {
     todoService.getAll
   }
 
