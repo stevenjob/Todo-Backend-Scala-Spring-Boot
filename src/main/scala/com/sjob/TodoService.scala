@@ -10,7 +10,7 @@ class TodoService @Autowired()(private val todoRepository: TodoRepository) {
     todoRepository.create(todo)
   }
 
-  def get(id: Long): Todo = {
+  def get(id: Long): Option[Todo] = {
     todoRepository.get(id)
   }
 

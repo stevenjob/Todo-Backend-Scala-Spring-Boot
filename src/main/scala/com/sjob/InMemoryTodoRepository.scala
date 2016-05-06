@@ -2,30 +2,39 @@ package com.sjob
 
 import org.springframework.stereotype.Repository
 import scala.collection.mutable.ListBuffer
+import scala.collection.mutable.Map
 
 @Repository
 class InMemoryTodoRepository extends TodoRepository {
 
-  var todos: ListBuffer[Todo] = new ListBuffer[Todo]()
+  var todos: Map[Long, Todo] = scala.collection.mutable.Map[Long, Todo]()
+  var id: Long = 0;
 
   def create(todo: Todo) = {
-    todos += todo
+    todo.id = id
+    todos += (id -> todo)
+    id += 1
+    todo
   }
 
-  def delete(id: Long) = {}
+  def delete(id: Long) = {
+    todos -= id
+  }
 
-  def deleteAll() = {}
+  def deleteAll() = {
+    todos empty
+  }
 
   def edit(todo: Todo) = {
-
+    todos += (todo.id -> todo)
   }
 
-  def get(id: Long): Todo = {
-    null
+  def get(id: Long): Option[Todo] = {
+    todos get id
   }
 
-  def getAll(): ListBuffer[Todo] = {
-    todos
+  def getAll(): Seq[Todo] = {
+    todos.map(_._2).toSeq
   }
 
 }

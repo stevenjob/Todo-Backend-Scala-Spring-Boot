@@ -14,7 +14,7 @@ class TodoController @Autowired()(private val todoService: TodoService) {
 
   @RequestMapping(method = Array(RequestMethod.GET))
   def getAll(): java.util.List[Todo] = {
-    todoService.getAll
+    todoService getAll
   }
 
   @RequestMapping(value = Array("/{id}"), method = Array(RequestMethod.GET))
