@@ -40,7 +40,7 @@ class InMemoryTodoRepository extends TodoRepository {
   }
 
   def getAll(): Seq[Todo] = {
-    todos.map(_._2).toSeq
+    todos.map(_._2).toSeq.sortBy(_.order)
   }
 
 }

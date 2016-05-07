@@ -21,6 +21,6 @@ class Todo {
   var completed: Boolean = _
 
   @BeanProperty
-  var order: Integer = _
+  var order: Integer = 0
 
 }
