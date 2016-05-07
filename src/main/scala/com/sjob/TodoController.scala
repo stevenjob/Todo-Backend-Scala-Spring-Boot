@@ -4,7 +4,10 @@ import org.springframework.web.bind.annotation._
 import org.springframework.validation.BindingResult
 import org.springframework.beans.factory.annotation.Autowired
 import java.lang.Long
+import java.net.URI
+import javax.servlet.http.HttpServletRequest
 import javax.validation.Valid
+
 import scala.collection.JavaConversions._
 
 @RestController
@@ -19,20 +22,20 @@ class TodoController @Autowired()(private val todoService: TodoService) {
 
   @RequestMapping(value = Array("/{id}"), method = Array(RequestMethod.GET))
   def getByID(@PathVariable("id") id: Long) = {
-    todoService.get(id)
+    //todo service get by id returns an option object so we need to unpack it
+    todoService.get(id).getOrElse(null)
   }
 
   @RequestMapping(method = Array(RequestMethod.POST))
-  def create(@Valid todo: Todo, bindingResult: BindingResult) = {
-    if (bindingResult.hasErrors()) {
-      //TODO do something
-    } else {
-      todoService.create(todo)
-    }
+  def create(@RequestBody todo: Todo, request: HttpServletRequest) = {
+    todo.requestURI = request.getRequestURL().toString
+    todoService.create(todo)
   }
 
   @RequestMapping(value = Array("/{id}"), method = Array(RequestMethod.PATCH))
-  def edit(@PathVariable("id") id: String, @RequestBody todoUpdates: Todo) = {
+  def edit(@PathVariable("id") id: String, @RequestBody todoUpdates: Todo, request: HttpServletRequest) = {
+    todoUpdates.id = id.toLong
+    todoUpdates.url = URI.create(request.getRequestURL().toString)
     todoService.edit(todoUpdates)
   }
 

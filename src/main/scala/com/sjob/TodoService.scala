@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service
 @Service
 class TodoService @Autowired()(private val todoRepository: TodoRepository) {
 
-  def create(todo: Todo) = {
+  def create(todo: Todo): Todo = {
     todoRepository.create(todo)
   }
 
@@ -18,7 +18,7 @@ class TodoService @Autowired()(private val todoRepository: TodoRepository) {
     todoRepository.getAll
   }
 
-  def edit(todo: Todo) = {
+  def edit(todo: Todo): Todo = {
     todoRepository.edit(todo)
   }
 

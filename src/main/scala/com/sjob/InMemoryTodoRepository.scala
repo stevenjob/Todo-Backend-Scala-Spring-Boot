@@ -1,8 +1,12 @@
 package com.sjob
 
+import java.net.URI
+
 import org.springframework.stereotype.Repository
+
 import scala.collection.mutable.ListBuffer
 import scala.collection.mutable.Map
+
 
 @Repository
 class InMemoryTodoRepository extends TodoRepository {
@@ -10,8 +14,9 @@ class InMemoryTodoRepository extends TodoRepository {
   var todos: Map[Long, Todo] = scala.collection.mutable.Map[Long, Todo]()
   var id: Long = 0;
 
-  def create(todo: Todo) = {
+  def create(todo: Todo): Todo = {
     todo.id = id
+    todo.url = URI.create(todo.requestURI + "/" + id)
     todos += (id -> todo)
     id += 1
     todo
@@ -22,11 +27,12 @@ class InMemoryTodoRepository extends TodoRepository {
   }
 
   def deleteAll() = {
-    todos empty
+    todos = scala.collection.mutable.Map[Long, Todo]()
   }
 
-  def edit(todo: Todo) = {
+  def edit(todo: Todo): Todo = {
     todos += (todo.id -> todo)
+    todo
   }
 
   def get(id: Long): Option[Todo] = {
