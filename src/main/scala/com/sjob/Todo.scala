@@ -17,10 +17,16 @@ class Todo {
   @BeanProperty
   var title: String = _
 
+  def titleOption = Option(title)
+
   @BeanProperty
   var completed: Boolean = _
 
+  def completedOption = Option(completed)
+
   @BeanProperty
-  var order: Integer = 0
+  var order: Integer = _
+
+  def orderOption = Option(order)
 
 }

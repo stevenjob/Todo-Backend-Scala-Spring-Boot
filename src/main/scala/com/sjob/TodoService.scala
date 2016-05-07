@@ -18,8 +18,8 @@ class TodoService @Autowired()(private val todoRepository: TodoRepository) {
     todoRepository.getAll
   }
 
-  def edit(todo: Todo): Todo = {
-    todoRepository.edit(todo)
+  def edit(todoUpdates: Todo): Todo = {
+    todoRepository.edit(todoUpdates)
   }
 
   def delete(id: Long) = {

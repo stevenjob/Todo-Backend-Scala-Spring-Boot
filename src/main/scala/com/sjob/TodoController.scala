@@ -35,7 +35,6 @@ class TodoController @Autowired()(private val todoService: TodoService) {
   @RequestMapping(value = Array("/{id}"), method = Array(RequestMethod.PATCH))
   def edit(@PathVariable("id") id: String, @RequestBody todoUpdates: Todo, request: HttpServletRequest): Todo = {
     todoUpdates.id = id.toLong
-    todoUpdates.url = URI.create(request.getRequestURL().toString)
     todoService.edit(todoUpdates)
   }
 

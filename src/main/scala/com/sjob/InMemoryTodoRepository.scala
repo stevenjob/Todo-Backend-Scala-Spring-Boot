@@ -30,9 +30,25 @@ class InMemoryTodoRepository extends TodoRepository {
     todos = scala.collection.mutable.Map[Long, Todo]()
   }
 
-  def edit(todo: Todo): Todo = {
-    todos += (todo.id -> todo)
-    todo
+  def edit(todoUpdate: Todo): Todo = {
+
+    //what should happen if you try to edit a todo that doesnt exist?
+    var currentTodo = todos get todoUpdate.id getOrElse todoUpdate
+
+    if (todoUpdate.titleOption.isDefined) {
+      currentTodo.title = todoUpdate.title
+    }
+
+    if (todoUpdate.completedOption.isDefined) {
+      currentTodo.completed = todoUpdate.completed
+    }
+
+    if (todoUpdate.orderOption.isDefined) {
+      currentTodo.order = todoUpdate.order
+    }
+
+    todos += (currentTodo.id -> currentTodo)
+    currentTodo
   }
 
   def get(id: Long): Option[Todo] = {
@@ -40,7 +56,7 @@ class InMemoryTodoRepository extends TodoRepository {
   }
 
   def getAll(): Seq[Todo] = {
-    todos.map(_._2).toSeq.sortBy(_.order)
+    todos.map(_._2).toSeq.sortBy(_.orderOption)
   }
 
 }
