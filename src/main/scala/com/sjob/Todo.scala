@@ -1,7 +1,8 @@
 package com.sjob
 
 import scala.beans.BeanProperty
-import java.net.URI;
+import java.net.URI
+import java.lang.Integer
 
 class Todo {
 
@@ -18,4 +19,8 @@ class Todo {
 
   @BeanProperty
   var completed: Boolean = _
+
+  @BeanProperty
+  var order: Integer = _
+
 }
